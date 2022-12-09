@@ -1,0 +1,1 @@
+exports.id=0,exports.modules={"./src/server/config.json":function(s){s.exports=JSON.parse('{"localhost":{"url":"http://localhost:8545","dataAddress":"0x0BF8719C16756bd6911CeE61b180150E8FcDD915","appAddress":"0xeaa29A663Bf1C2142df613ba839d933b93033f9F"}}')}};
