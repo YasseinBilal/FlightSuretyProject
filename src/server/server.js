@@ -73,13 +73,11 @@ flightSuretyData.events.allEvents({ fromBlock: 'latest' }, function (
 })
 
 function submitOracleResponse(oracle, index, airline, flight, timestamp) {
-  console.log('in 1')
   flightSuretyApp.methods
     .submitOracleResponse(index, airline, flight, timestamp, currentStatus)
     .send({ from: oracle, gas: 400000, gasPrice: 30000000 })
 
   if (currentStatus == STATUS_CODE_LATE_AIRLINE) {
-    console.log('innn')
     flightSuretyData.methods.creditInsurees(flight).call({ from: oracle })
   }
 }
@@ -90,10 +88,9 @@ function getOracleAccounts() {
       .getAccounts()
       .then((accountList) => {
         // We start at account 20 so we have first ones useable for airline and passengers.
-        oracleAccounts = accountList.slice(20, 20 + ORACLES_COUNT)
+        oracleAccounts = accountList.slice(FIRST_ORACLE_INDEX, FIRST_ORACLE_INDEX + ORACLES_COUNT)
       })
       .catch((err) => {
-        console.log('in !!!!!')
         reject(err)
       })
       .then(() => {
@@ -124,7 +121,6 @@ function initializeOracles(accounts) {
                   from: accounts[i],
                 })
                 .then((index) => {
-                  console.log('in orache', index)
                   oraclesIndexies.push(index)
                 })
                 .catch((e) => {
